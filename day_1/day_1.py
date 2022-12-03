@@ -14,32 +14,25 @@ with open("day_1/input.txt", "r") as file:
             data.append(elf.copy())
             elf.clear()
 
-"""
-PART1
-Find the elf carrying the most calories.
-Answer is the calories of this elf.
-"""
-
 
 def part1():
-    """Calculate who is carrying the most calories"""
+    """
+    PART1
+    Find the elf carrying the most calories.
+    Answer is the calories of this elf.
+    # Answer for part1: 72017
+    """
     return max([sum(elf) for elf in data])
 
 
-# Answer for part1: 72017
-
-"""
-PART2
-Find the top3 elves carrying the most calories.
-The answer is the sum of the calories of these three.
-"""
-
-
 def part2():
+    """
+    PART2
+    Find the top3 elves carrying the most calories.
+    The answer is the sum of the calories of these three.
+    # Answer for part2: 212520
+    """
     return sum(sorted([sum(elf) for elf in data], reverse=True)[:3])
-
-
-# Answer for part2: 212520
 
 
 def main():
