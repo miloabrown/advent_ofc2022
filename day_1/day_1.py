@@ -5,14 +5,9 @@ Code written by Milo
 
 # Deal with input.
 with open("day_1/input.txt", "r") as file:
-    data = []
-    elf = []
-    for row in file:
-        if row.strip().isnumeric():
-            elf.append(int(row.strip()))
-        else:
-            data.append(elf.copy())
-            elf.clear()
+    data = [
+        list(map(int, row.split("\n"))) for row in file.read().strip().split("\n\n")
+    ]
 
 
 def part1():

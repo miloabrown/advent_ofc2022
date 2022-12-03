@@ -57,7 +57,7 @@ def part2():
     Y: draw
     Z: win
     Figure out what hand needs to be played,
-    and calculate new core based on new hand.
+    and calculate new score based on new hand.
 
     # Answer: 14610
     """
