@@ -27,7 +27,7 @@ def part2():
     The answer is the sum of the calories of these three.
     # Answer for part2: 212520
     """
-    return sum(sorted([sum(elf) for elf in data], reverse=True)[:3])
+    return sum(sorted([sum(elf) for elf in data])[-3:])
 
 
 def main():
