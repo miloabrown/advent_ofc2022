@@ -3,18 +3,11 @@ Advent Of code 2022
 Code written by Milo
 DAY4: Camp Cleanup
 """
-from itertools import chain
+from timeit import timeit
 
 with open("day_4/input.txt", "r") as file:
-    # Save data into list that contains each cleaning area pair as list of ranges:
-    # --> data = [[range1,range2],[range3,range4],...]
-    # this way ranges are easy to convert to sets for inspection
-    # messy but works...
     data = [
-        [
-            range(int(x.split("-")[0]), int(x.split("-")[1]) + 1)
-            for x in row.strip().split(",")
-        ]
+        [(int(x.split("-")[0]), int(x.split("-")[1])) for x in row.strip().split(",")]
         for row in file
     ]
 
@@ -28,9 +21,7 @@ def part1():
     """
 
     def is_sub(a, b):
-        # Takes the two ranges as parameters and checks if
-        # either one completely contains the other
-        return set(a).issubset(b) or set(b).issubset(a)
+        return (a[0] <= b[0] and a[1] >= b[1]) or (a[0] >= b[0] and a[1] <= b[1])
 
     return sum([is_sub(x[0], x[1]) for x in data])
 
@@ -45,13 +36,13 @@ def part2():
 
     def overlaps(a, b):
         # Takes the two ranges as parameters and checks if they overlap
-        return any(i in a for i in b)
+        return b[0] <= a[0] <= b[1] or a[0] <= b[0] <= a[1]
 
     return sum([overlaps(x[0], x[1]) for x in data])
 
 
 def main():
-    print(f"Part1: {part1()}\n" f"Part2: {part2()}")
+    print(f"Part1: {(part1())}\n" f"Part2: {timeit(part2())}")
 
 
 if __name__ == "__main__":
