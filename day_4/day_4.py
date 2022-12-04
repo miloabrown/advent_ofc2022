@@ -3,20 +3,20 @@ Advent Of code 2022
 Code written by Milo
 DAY4: Camp Cleanup
 """
-with open("day_4/input.txt", "r") as file:
-    data = [row.strip().split(",") for row in file]
+from itertools import chain
 
-# Convert data into tuple of ranges for each cleaning area pair
-# --> data = [(range(1),range(2)),(range(1),range(2)),(...,...),...]
-data = list(
-    map(
-        lambda x: (
-            range(int(x[0].split("-")[0]), int(x[0].split("-")[1]) + 1),
-            range(int(x[1].split("-")[0]), int(x[1].split("-")[1]) + 1),
-        ),
-        data,
-    )
-)
+with open("day_4/input.txt", "r") as file:
+    # Save data into list that contains each cleaning area pair as list of ranges:
+    # --> data = [[range1,range2],[range3,range4],...]
+    # this way ranges are easy to convert to sets for inspection
+    # messy but works...
+    data = [
+        [
+            range(int(x.split("-")[0]), int(x.split("-")[1]) + 1)
+            for x in row.strip().split(",")
+        ]
+        for row in file
+    ]
 
 
 def part1():
@@ -32,7 +32,7 @@ def part1():
         # either one completely contains the other
         return set(a).issubset(b) or set(b).issubset(a)
 
-    return sum([1 if is_sub(x[0], x[1]) else 0 for x in data])
+    return sum([is_sub(x[0], x[1]) for x in data])
 
 
 def part2():
@@ -47,7 +47,7 @@ def part2():
         # Takes the two ranges as parameters and checks if they overlap
         return any(i in a for i in b)
 
-    return sum([1 if overlaps(x[0], x[1]) else 0 for x in data])
+    return sum([overlaps(x[0], x[1]) for x in data])
 
 
 def main():
