@@ -3,7 +3,6 @@ Advent Of code 2022
 Code written by Milo
 DAY4: Camp Cleanup
 """
-from timeit import timeit
 
 with open("day_4/input.txt", "r") as file:
     data = [
@@ -42,7 +41,7 @@ def part2():
 
 
 def main():
-    print(f"Part1: {(part1())}\n" f"Part2: {timeit(part2())}")
+    print(f"Part1: {(part1())}\n" f"Part2: {(part2())}")
 
 
 if __name__ == "__main__":
