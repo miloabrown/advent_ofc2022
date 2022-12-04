@@ -17,7 +17,6 @@ data = list(
         data,
     )
 )
-print(data[0])
 
 
 def part1():
