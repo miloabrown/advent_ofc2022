@@ -15,23 +15,20 @@ for row in data[:8]:
     for index, symbol in enumerate(row[1::4]):
         if symbol.isalpha():
             stacks1[index % 9].append(symbol)
+
 # Deal with moves data
 moves = [
-    row.strip()
-    .replace("move ", "")
-    .replace(" from ", " ")
-    .replace(" to ", " ")
-    .split(" ")
+    [
+        int(row.strip().split(" ")[1]),
+        int(row.strip().split(" ")[3]),
+        int(row.strip().split(" ")[5]),
+    ]
     for row in data[10:]
 ]
 
-# make a copy of stack for part2
-stacks2 = copy.deepcopy(stacks1)
-
 
 def top_crates(stacks):
-    ans = [x.popleft() if x else "" for x in stacks]
-    return "".join(ans)
+    return "".join([x.popleft() if x else "" for x in stacks])
 
 
 def part1():
@@ -49,15 +46,21 @@ def part1():
 
     # Go through all moves
     for m in moves:
-        move(int(m[0]), stacks1[int(m[1]) - 1], stacks1[int(m[2]) - 1])
+        move(m[0], stacks1[m[1] - 1], stacks1[m[2] - 1])
 
     return top_crates(stacks1)
+
+
+# make a copy of stacks for part2
+stacks2 = copy.deepcopy(stacks1)
 
 
 def part2():
     """
     PART2
+    crane can move multiple boxes
 
+    Answer: QNDWLMGNS
     """
 
     def move(amount, stack1, stack2):
@@ -68,7 +71,7 @@ def part2():
 
     # Go through all moves
     for m in moves:
-        move(int(m[0]), stacks2[int(m[1]) - 1], stacks2[int(m[2]) - 1])
+        move(m[0], stacks2[m[1] - 1], stacks2[m[2] - 1])
 
     return top_crates(stacks2)
 
