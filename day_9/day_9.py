@@ -17,27 +17,27 @@ directions = {"U": (1, 0), "D": (-1, 0), "L": (0, -1), "R": (0, 1)}
 def part1():
     """
     PART1
+    how many spaces does the tail visit with two knots
 
     Answer: 5710
     """
+    knots = [[0, 0], [0, 0]]
+    visited = set()
 
-    head, tail = [0, 0], [0, 0]
-    visited = []
-
-    for step in data:
-
-        dir, dist = step.split(" ")
-
+    def move(head, next, dir, dist):
         for _ in range(int(dist)):
             head[0] += directions[dir][0]
             head[1] += directions[dir][1]
-            if not is_close(head[0], head[1], tail[0], tail[1]):
-                tail[0], tail[1] = (
+            if not is_close(head[0], head[1], next[0], next[1]):
+                next[0], next[1] = (
                     head[0] - directions[dir][0],
                     head[1] - directions[dir][1],
                 )
-            if [tail[0], tail[1]] not in visited:
-                visited.append([tail[0], tail[1]])
+            visited.add((next[0], next[1]))
+
+    for step in data:
+        dir, dist = step.split(" ")
+        move(knots[0], knots[1], dir, dist)
 
     return len(visited)
 
@@ -45,10 +45,12 @@ def part1():
 def part2():
     """
     PART2
+    how many spaces does the tail visit with 10 knots
 
     Answer:
     """
-    pass
+    knots = [[0, 0] for x in range(10)]
+    visited = set()
 
 
 def main():
