@@ -3,15 +3,30 @@ Advent Of code 2022
 Code written by Milo
 DAY9: Rope Bridge
 """
+from numpy import sign
+
 with open("day_9/input.txt", "r") as file:
     data = file.read().strip().split("\n")
 
 
-def is_close(head_row, head_col, tail_row, tail_col):
-    return abs(head_row - tail_row) < 2 and abs(head_col - tail_col) < 2
+def is_close(head, tail):
+    return abs(head[0] - tail[0]) < 2 and abs(head[1] - tail[1]) < 2
 
 
 directions = {"U": (1, 0), "D": (-1, 0), "L": (0, -1), "R": (0, 1)}
+
+
+def move(dir, dist, knots, visited):
+    for _ in range(int(dist)):
+        knots[0][0] += directions[dir][0]
+        knots[0][1] += directions[dir][1]
+
+        for i in range(len(knots) - 1):
+            if not is_close(knots[i], knots[i + 1]):
+                knots[i + 1][0] += sign(knots[i][0] - knots[i + 1][0])
+                knots[i + 1][1] += sign(knots[i][1] - knots[i + 1][1])
+
+        visited.add(tuple(knots[len(knots) - 1]))
 
 
 def part1():
@@ -22,22 +37,11 @@ def part1():
     Answer: 5710
     """
     knots = [[0, 0], [0, 0]]
-    visited = set()
-
-    def move(head, next, dir, dist):
-        for _ in range(int(dist)):
-            head[0] += directions[dir][0]
-            head[1] += directions[dir][1]
-            if not is_close(head[0], head[1], next[0], next[1]):
-                next[0], next[1] = (
-                    head[0] - directions[dir][0],
-                    head[1] - directions[dir][1],
-                )
-            visited.add((next[0], next[1]))
+    visited = set({(0, 0)})
 
     for step in data:
         dir, dist = step.split(" ")
-        move(knots[0], knots[1], dir, dist)
+        move(dir, dist, knots, visited)
 
     return len(visited)
 
@@ -47,10 +51,27 @@ def part2():
     PART2
     how many spaces does the tail visit with 10 knots
 
-    Answer:
+    Answer: 2259
     """
-    knots = [[0, 0] for x in range(10)]
-    visited = set()
+    knots = {
+        0: [0, 0],
+        1: [0, 0],
+        2: [0, 0],
+        3: [0, 0],
+        4: [0, 0],
+        5: [0, 0],
+        6: [0, 0],
+        7: [0, 0],
+        8: [0, 0],
+        9: [0, 0],
+    }
+    visited = set({(0, 0)})
+
+    for step in data:
+        dir, dist = step.split(" ")
+        move(dir, dist, knots, visited)
+
+    return len(visited)
 
 
 def main():
