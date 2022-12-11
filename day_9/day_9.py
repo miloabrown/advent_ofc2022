@@ -29,14 +29,8 @@ def move(dir, dist, knots, visited):
         visited.add(tuple(knots[len(knots) - 1]))
 
 
-def part1():
-    """
-    PART1
-    how many spaces does the tail visit with two knots
-
-    Answer: 5710
-    """
-    knots = [[0, 0], [0, 0]]
+def solve(n):
+    knots = [[0, 0] for x in range(n)]
     visited = set({(0, 0)})
 
     for step in data:
@@ -44,6 +38,16 @@ def part1():
         move(dir, dist, knots, visited)
 
     return len(visited)
+
+
+def part1():
+    """
+    PART1
+    how many spaces does the tail visit with two knots
+
+    Answer: 5710
+    """
+    return solve(2)
 
 
 def part2():
@@ -53,25 +57,7 @@ def part2():
 
     Answer: 2259
     """
-    knots = {
-        0: [0, 0],
-        1: [0, 0],
-        2: [0, 0],
-        3: [0, 0],
-        4: [0, 0],
-        5: [0, 0],
-        6: [0, 0],
-        7: [0, 0],
-        8: [0, 0],
-        9: [0, 0],
-    }
-    visited = set({(0, 0)})
-
-    for step in data:
-        dir, dist = step.split(" ")
-        move(dir, dist, knots, visited)
-
-    return len(visited)
+    return solve(10)
 
 
 def main():
