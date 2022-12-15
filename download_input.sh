@@ -8,7 +8,6 @@ ENV_FILE=.env
 
 # Extract session token
 SESSION_TOKEN=$(grep SESSION "${ENV_FILE}"| sed s/SESSION=//g)
-echo ${SESSION_TOKEN}
 
 DAY=$1
 [ -z "${DAY}" ] && DAY=1
