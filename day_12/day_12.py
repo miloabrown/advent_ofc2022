@@ -47,6 +47,7 @@ def part1():
 def part2():
     """
     PART2
+    fewest steps from the nearest "a" to end point
 
     Answer: 332
     """
