@@ -17,14 +17,7 @@ for row in data[:8]:
             stacks1[index % 9].append(symbol)
 
 # Deal with moves data
-moves = [
-    [
-        int(row.strip().split(" ")[1]),
-        int(row.strip().split(" ")[3]),
-        int(row.strip().split(" ")[5]),
-    ]
-    for row in data[10:]
-]
+moves = [[int(x) for x in row.strip().split(" ")[1:6:2]] for row in data[10:]]
 
 
 def top_crates(stacks):
