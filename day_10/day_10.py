@@ -47,7 +47,7 @@ def part2():
     cycle = 0
     pixels = list("." * 40 * 6)
 
-    def draw_pixel(x, cycles, pixels):
+    def draw_pixel(x, pixels):
         pixels[cycle - 1] = "#" if (cycle - 1) % 40 in range(x - 1, x + 2) else " "
 
     for row in data:
@@ -56,11 +56,11 @@ def part2():
         if row[0] == "addx":
             for _ in range(2):
                 cycle += 1
-                draw_pixel(x, cycle, pixels)
+                draw_pixel(x, pixels)
             x += int(row[1])
             continue
         cycle += 1
-        draw_pixel(x, cycle, pixels)
+        draw_pixel(x, pixels)
 
     return ["".join(pixels[i : i + 40]) for i in range(0, 201, 40)]
 
